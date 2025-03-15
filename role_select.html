@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色选择 - 小财芽APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8fff0;
+            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .role-container {
+            padding-top: 60px;
+            height: 100%;
+        }
+        .role-card {
+            transition: all 0.3s ease;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .role-card.active {
+            border: 3px solid #4caf50;
+        }
+        .btn-primary {
+            background-color: #4caf50;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        .btn-primary:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="role-container flex flex-col items-center px-8">
+        <!-- 标题 -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-green-600">选择角色</h1>
+            <p class="text-gray-500 mt-2">请选择您要使用的角色身份</p>
+        </div>
+        
+        <!-- 角色选择卡片 -->
+        <div class="w-full max-w-md space-y-6">
+            <!-- 家长角色卡片 -->
+            <div class="role-card bg-white shadow-md p-6 active" id="parent-card">
+                <div class="flex items-center">
+                    <div class="h-16 w-16 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083377_1280.png" alt="家长" class="h-12 w-12 object-contain">
+                    </div>
+                    <div class="ml-6 flex-grow">
+                        <h3 class="text-xl font-bold text-gray-800">家长</h3>
+                        <p class="text-gray-500 text-sm mt-1">管理任务、奖励和孩子账户</p>
+                    </div>
+                    <div class="ml-4">
+                        <div class="h-6 w-6 rounded-full border-2 border-green-500 flex items-center justify-center">
+                            <div class="h-3 w-3 rounded-full bg-green-500"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 text-gray-600 text-sm">
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            创建和分配任务给孩子
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            奖励或扣除芽币
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            管理孩子账户和虚拟商城
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 孩子角色卡片 -->
+            <div class="role-card bg-white shadow-md p-6" id="child-card">
+                <div class="flex items-center">
+                    <div class="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2016/08/31/11/54/icon-1633249_1280.png" alt="孩子" class="h-12 w-12 object-contain">
+                    </div>
+                    <div class="ml-6 flex-grow">
+                        <h3 class="text-xl font-bold text-gray-800">孩子</h3>
+                        <p class="text-gray-500 text-sm mt-1">完成任务、获取芽币、兑换奖励</p>
+                    </div>
+                    <div class="ml-4">
+                        <div class="h-6 w-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 text-gray-600 text-sm">
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            查看和完成任务
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            获取芽币奖励
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            在商城中兑换礼品和特权
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="absolute left-0 right-0 flex justify-center -top-4">
+                    <div class="bg-white px-8 text-sm text-gray-400">或者</div>
+                </div>
+                <div class="border-t border-gray-200 my-6"></div>
+            </div>
+            
+            <!-- 添加新孩子 -->
+            <div class="role-card bg-white shadow-md p-6 border-dashed border-2 border-gray-200">
+                <div class="flex flex-col items-center text-center">
+                    <div class="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+                        <i class="fas fa-plus text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-700">添加新孩子账号</h3>
+                    <p class="text-gray-500 text-sm mt-2">为家庭中的其他孩子创建新账号</p>
+                </div>
+            </div>
+            
+            <!-- 确认按钮 -->
+            <button type="button" class="w-full btn-primary text-white py-4 rounded-xl font-medium text-lg mt-8 transition-all">
+                确认选择
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // 简单的角色选择交互
+        document.getElementById('parent-card').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('child-card').classList.remove('active');
+        });
+        
+        document.getElementById('child-card').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('parent-card').classList.remove('active');
+        });
+    </script>
+</body>
+</html> 

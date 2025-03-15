@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务管理 - 小财芽APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding-bottom: 80px;
+        }
+        .avatar {
+            border: 3px solid white;
+        }
+        .nav-tab {
+            position: relative;
+        }
+        .nav-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #4caf50;
+            border-radius: 3px;
+        }
+        .task-category {
+            transition: all 0.3s ease;
+        }
+        .task-category.active {
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+            color: #4caf50;
+        }
+        .task-item {
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+        .floating-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background-color: #4caf50;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            z-index: 50;
+        }
+        .task-chip {
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 pt-6">
+        <!-- 顶部栏 -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="fas fa-user text-green-600"></i>
+                </div>
+                <div class="ml-3">
+                    <h2 class="text-lg font-semibold">林妈妈</h2>
+                    <p class="text-sm text-gray-500">家长账号</p>
+                </div>
+            </div>
+            <div>
+                <button class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-bell text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 导航标签页 -->
+        <div class="flex space-x-6 border-b border-gray-200 pb-3 mb-6">
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">首页</span>
+            </div>
+            <div class="nav-tab active">
+                <span class="font-medium text-gray-800">任务</span>
+            </div>
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">芽币</span>
+            </div>
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">动态</span>
+            </div>
+        </div>
+        
+        <!-- 任务分类选择器 -->
+        <div class="flex space-x-3 overflow-x-auto pb-3 mb-6 scrollbar-hide">
+            <button class="task-category active flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 font-medium text-sm">
+                全部任务
+            </button>
+            <button class="task-category flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                已分配
+            </button>
+            <button class="task-category flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                待审核
+            </button>
+            <button class="task-category flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                已完成
+            </button>
+            <button class="task-category flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                已过期
+            </button>
+        </div>
+        
+        <!-- 搜索栏 -->
+        <div class="relative mb-6">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-gray-400"></i>
+            </div>
+            <input type="text" class="w-full py-3 pl-12 pr-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition" placeholder="搜索任务名称或者描述...">
+        </div>
+        
+        <!-- 任务列表 -->
+        <div class="space-y-4 mb-6">
+            <h3 class="font-semibold text-gray-800 mb-3">任务列表</h3>
+            
+            <!-- 任务1 -->
+            <div class="task-item bg-white p-4">
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <h4 class="font-medium text-gray-800">背诵古诗《静夜思》</h4>
+                        <div class="flex mt-1">
+                            <span class="task-chip bg-blue-50 text-blue-600">学习</span>
+                            <span class="task-chip bg-purple-50 text-purple-600">每日任务</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-green-600 mr-2">+10 芽币</span>
+                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="text-gray-600 text-sm mb-3">完整背诵李白的《静夜思》，并能流利朗读，可录制视频提交。</p>
+                
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="小明" class="w-6 h-6 rounded-full border-2 border-white">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="小红" class="w-6 h-6 rounded-full border-2 border-white -ml-2">
+                        <span class="ml-2 text-xs text-gray-500">已分配</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="far fa-clock text-gray-400 mr-1 text-xs"></i>
+                        <span class="text-xs text-gray-500">今天 22:00截止</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 任务2 -->
+            <div class="task-item bg-white p-4">
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <h4 class="font-medium text-gray-800">整理自己的书桌</h4>
+                        <div class="flex mt-1">
+                            <span class="task-chip bg-orange-50 text-orange-600">家务</span>
+                            <span class="task-chip bg-pink-50 text-pink-600">周末任务</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-green-600 mr-2">+15 芽币</span>
+                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="text-gray-600 text-sm mb-3">将书桌上的物品整理归类，保持干净整洁，完成后拍照提交。</p>
+                
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="小红" class="w-6 h-6 rounded-full border-2 border-white">
+                        <span class="ml-2 text-xs text-gray-500">已分配</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="far fa-clock text-orange-400 mr-1 text-xs"></i>
+                        <span class="text-xs text-orange-500">明天 18:00截止</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 任务3（待审核状态） -->
+            <div class="task-item bg-white p-4 border-l-4 border-orange-400">
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <div class="flex items-center">
+                            <h4 class="font-medium text-gray-800">练习钢琴30分钟</h4>
+                            <span class="ml-2 text-xs px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full">待审核</span>
+                        </div>
+                        <div class="flex mt-1">
+                            <span class="task-chip bg-blue-50 text-blue-600">艺术</span>
+                            <span class="task-chip bg-purple-50 text-purple-600">每日任务</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-green-600 mr-2">+20 芽币</span>
+                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="text-gray-600 text-sm mb-3">练习《小星星》曲目，保持正确的坐姿和手型，完成后录制视频提交。</p>
+                
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="小红" class="w-6 h-6 rounded-full border-2 border-white">
+                        <span class="ml-2 text-xs text-gray-500">10分钟前提交</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-1 text-xs"></i>
+                        <span class="text-xs text-green-500">已按时提交</span>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-2 justify-end">
+                    <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium">
+                        拒绝
+                    </button>
+                    <button class="px-4 py-2 bg-green-50 text-green-600 rounded-lg text-sm font-medium">
+                        批准并奖励
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 任务4（已完成状态） -->
+            <div class="task-item bg-white p-4 border-l-4 border-green-400">
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <div class="flex items-center">
+                            <h4 class="font-medium text-gray-800">每天喝水8杯</h4>
+                            <span class="ml-2 text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full">已完成</span>
+                        </div>
+                        <div class="flex mt-1">
+                            <span class="task-chip bg-green-50 text-green-600">健康</span>
+                            <span class="task-chip bg-purple-50 text-purple-600">每日任务</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-green-600 mr-2">+5 芽币</span>
+                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="text-gray-600 text-sm mb-3">全天饮水8杯（约2000ml），保持身体水分充足，养成良好的饮水习惯。</p>
+                
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="小明" class="w-6 h-6 rounded-full border-2 border-white">
+                        <span class="ml-2 text-xs text-gray-500">今天 15:30完成</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-coins text-yellow-500 mr-1 text-xs"></i>
+                        <span class="text-xs text-gray-500">已获得5芽币</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 悬浮添加按钮 -->
+    <button class="floating-btn">
+        <i class="fas fa-plus"></i>
+    </button>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav h-16 flex items-center justify-around">
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-home text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">首页</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-tasks text-green-600"></i>
+            <span class="text-xs mt-1 text-green-600">任务</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-plus-circle text-gray-400 text-2xl"></i>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-coins text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">芽币</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-user text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">我的</span>
+        </a>
+    </div>
+</body>
+</html> 

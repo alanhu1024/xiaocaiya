@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>芽币账户 - 小财芽APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding-bottom: 80px;
+        }
+        .avatar {
+            border: 3px solid white;
+        }
+        .nav-tab {
+            position: relative;
+        }
+        .nav-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #4caf50;
+            border-radius: 3px;
+        }
+        .coin-card {
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .transaction-item {
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        .transaction-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+        .coin-date-tab {
+            transition: all 0.3s ease;
+        }
+        .coin-date-tab.active {
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+            color: #4caf50;
+        }
+        .chart-container {
+            height: 200px;
+            position: relative;
+        }
+        .bar {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            border-radius: 6px 6px 0 0;
+            background-color: #4caf50;
+        }
+        .bar:nth-child(even) {
+            background-color: #8bc34a;
+        }
+        .money-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .coin {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #ffd700;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            100% { transform: translateY(calc(100vh + 100px)) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 pt-6">
+        <!-- 顶部栏 -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <img src="https://i.pravatar.cc/150?img=3" alt="小明" class="w-12 h-12 rounded-full avatar">
+                <div class="ml-3">
+                    <h2 class="text-lg font-semibold">小明</h2>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-1 text-xs"></i>
+                        <span class="text-sm text-gray-500">8岁 · 2年级</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-bell text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 导航标签页 -->
+        <div class="flex space-x-6 border-b border-gray-200 pb-3 mb-6">
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">首页</span>
+            </div>
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">任务</span>
+            </div>
+            <div class="nav-tab active">
+                <span class="font-medium text-gray-800">芽币</span>
+            </div>
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">排行榜</span>
+            </div>
+        </div>
+        
+        <!-- 芽币卡片 -->
+        <div class="coin-card bg-gradient-to-r from-green-400 to-green-600 p-5 rounded-2xl mb-6 text-white relative overflow-hidden">
+            <div class="money-rain">
+                <div class="coin" style="left: 10%; animation-duration: 3s;"></div>
+                <div class="coin" style="left: 20%; animation-duration: 5s;"></div>
+                <div class="coin" style="left: 35%; animation-duration: 4s;"></div>
+                <div class="coin" style="left: 50%; animation-duration: 6s;"></div>
+                <div class="coin" style="left: 65%; animation-duration: 3.5s;"></div>
+                <div class="coin" style="left: 80%; animation-duration: 4.5s;"></div>
+                <div class="coin" style="left: 90%; animation-duration: 5.5s;"></div>
+            </div>
+            
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="font-semibold">我的芽币</h3>
+                <span class="text-sm">余额</span>
+            </div>
+            
+            <div class="flex items-baseline mb-6">
+                <span class="text-5xl font-bold">128</span>
+                <span class="ml-2 opacity-80">芽币</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <div class="p-3 bg-white bg-opacity-20 rounded-xl">
+                    <div class="text-sm opacity-80 mb-1">本周获得</div>
+                    <div class="flex items-center">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        <span class="text-xl font-bold">+42</span>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-white bg-opacity-20 rounded-xl">
+                    <div class="text-sm opacity-80 mb-1">本周使用</div>
+                    <div class="flex items-center">
+                        <i class="fas fa-arrow-down mr-1"></i>
+                        <span class="text-xl font-bold">-20</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 日期选择器 -->
+        <div class="flex space-x-3 overflow-x-auto pb-3 mb-6 scrollbar-hide">
+            <button class="coin-date-tab active flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 font-medium text-sm">
+                近7天
+            </button>
+            <button class="coin-date-tab flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                本月
+            </button>
+            <button class="coin-date-tab flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                上个月
+            </button>
+            <button class="coin-date-tab flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                全部
+            </button>
+        </div>
+        
+        <!-- 芽币趋势图 -->
+        <div class="bg-white p-5 rounded-2xl mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-gray-800">芽币趋势</h3>
+                <button class="text-xs px-3 py-1 bg-gray-100 rounded-full text-gray-700">
+                    收入/支出
+                </button>
+            </div>
+            
+            <div class="chart-container mb-4">
+                <div class="bar" style="height: 60%; left: 5%;"></div>
+                <div class="bar" style="height: 80%; left: 18%;"></div>
+                <div class="bar" style="height: 50%; left: 31%;"></div>
+                <div class="bar" style="height: 70%; left: 44%;"></div>
+                <div class="bar" style="height: 90%; left: 57%;"></div>
+                <div class="bar" style="height: 65%; left: 70%;"></div>
+                <div class="bar" style="height: 75%; left: 83%;"></div>
+                
+                <div class="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-400 pt-2 border-t border-gray-100">
+                    <div>周一</div>
+                    <div>周二</div>
+                    <div>周三</div>
+                    <div>周四</div>
+                    <div>周五</div>
+                    <div>周六</div>
+                    <div>周日</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-3 bg-green-50 rounded-xl">
+                    <div class="flex items-center mb-1">
+                        <div class="w-6 h-6 rounded-full bg-green-200 flex items-center justify-center">
+                            <i class="fas fa-arrow-up text-green-600 text-xs"></i>
+                        </div>
+                        <span class="ml-2 text-sm font-medium text-gray-700">收入芽币</span>
+                    </div>
+                    <span class="text-xl font-bold text-green-600">+45</span>
+                </div>
+                
+                <div class="p-3 bg-red-50 rounded-xl">
+                    <div class="flex items-center mb-1">
+                        <div class="w-6 h-6 rounded-full bg-red-200 flex items-center justify-center">
+                            <i class="fas fa-arrow-down text-red-600 text-xs"></i>
+                        </div>
+                        <span class="ml-2 text-sm font-medium text-gray-700">支出芽币</span>
+                    </div>
+                    <span class="text-xl font-bold text-red-600">-20</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 交易记录 -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-gray-800">芽币收支明细</h3>
+                <button class="text-green-600 text-sm">
+                    筛选
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- 记录1 -->
+                <div class="transaction-item bg-white p-4">
+                    <div class="flex">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-book text-green-600"></i>
+                        </div>
+                        <div class="ml-3 flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-medium text-gray-800">任务完成奖励</h4>
+                                <span class="text-green-600 font-medium">+10</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">完成任务：背诵古诗《静夜思》</p>
+                            <div class="flex justify-between mt-2">
+                                <span class="text-xs text-gray-400">今天 10:35</span>
+                                <span class="text-xs text-gray-500">余额: 128</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 记录2 -->
+                <div class="transaction-item bg-white p-4">
+                    <div class="flex">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-tint text-blue-600"></i>
+                        </div>
+                        <div class="ml-3 flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-medium text-gray-800">任务完成奖励</h4>
+                                <span class="text-green-600 font-medium">+5</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">完成任务：每天喝水8杯</p>
+                            <div class="flex justify-between mt-2">
+                                <span class="text-xs text-gray-400">今天 15:10</span>
+                                <span class="text-xs text-gray-500">余额: 118</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 记录3 -->
+                <div class="transaction-item bg-white p-4">
+                    <div class="flex">
+                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-pencil-alt text-purple-600"></i>
+                        </div>
+                        <div class="ml-3 flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-medium text-gray-800">任务完成奖励</h4>
+                                <span class="text-green-600 font-medium">+15</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">完成任务：完成数学作业</p>
+                            <div class="flex justify-between mt-2">
+                                <span class="text-xs text-gray-400">昨天 17:22</span>
+                                <span class="text-xs text-gray-500">余额: 113</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 记录4 -->
+                <div class="transaction-item bg-white p-4">
+                    <div class="flex">
+                        <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-gamepad text-yellow-600"></i>
+                        </div>
+                        <div class="ml-3 flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-medium text-gray-800">商城兑换</h4>
+                                <span class="text-red-600 font-medium">-20</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">兑换奖励：额外30分钟游戏时间</p>
+                            <div class="flex justify-between mt-2">
+                                <span class="text-xs text-gray-400">2天前 19:40</span>
+                                <span class="text-xs text-gray-500">余额: 98</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 记录5 -->
+                <div class="transaction-item bg-white p-4">
+                    <div class="flex">
+                        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-gift text-red-600"></i>
+                        </div>
+                        <div class="ml-3 flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-medium text-gray-800">特别奖励</h4>
+                                <span class="text-green-600 font-medium">+10</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">帮助妹妹整理玩具</p>
+                            <div class="flex justify-between mt-2">
+                                <span class="text-xs text-gray-400">3天前 16:15</span>
+                                <span class="text-xs text-gray-500">余额: 88</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 加载更多 -->
+                <button class="w-full py-3 bg-gray-100 text-gray-600 rounded-xl font-medium">
+                    加载更多
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav h-16 flex items-center justify-around">
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-home text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">首页</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-tasks text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">任务</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-store text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">商城</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-trophy text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">排行榜</span>
+        </a>
+    </div>
+</body>
+</html> 

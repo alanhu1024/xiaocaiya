@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录/注册 - 小财芽APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8fff0;
+            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .login-container {
+            padding-top: 60px;
+            height: 100%;
+        }
+        .app-logo {
+            width: 120px;
+            height: 120px;
+        }
+        .plant-animation {
+            animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .btn-primary {
+            background-color: #4caf50;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        .btn-primary:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
+        }
+        .auth-input {
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+        .auth-input:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container flex flex-col items-center px-8">
+        <!-- Logo 和标题 -->
+        <div class="flex flex-col items-center mb-10">
+            <div class="app-logo bg-green-100 rounded-full flex items-center justify-center mb-6 plant-animation">
+                <img src="https://cdn.pixabay.com/photo/2017/01/31/17/10/lotus-2025750_960_720.png" alt="小财芽Logo" class="w-24 h-24 object-contain">
+            </div>
+            <h1 class="text-3xl font-bold text-green-600">小财芽</h1>
+            <p class="text-gray-500 mt-2">培养好习惯，收获好未来</p>
+        </div>
+        
+        <!-- 登录表单 -->
+        <div class="w-full max-w-md">
+            <div class="tabs flex justify-center mb-8">
+                <button class="py-2 px-6 font-medium text-green-600 border-b-2 border-green-600">登录/注册</button>
+            </div>
+            
+            <form class="space-y-6">
+                <!-- 手机号输入 -->
+                <div>
+                    <label for="phone" class="text-sm text-gray-600 font-medium mb-2 block">手机号码</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-mobile-alt text-gray-400"></i>
+                        </div>
+                        <input type="tel" id="phone" class="auth-input w-full pl-12" placeholder="请输入手机号码" maxlength="11">
+                    </div>
+                </div>
+                
+                <!-- 验证码输入 -->
+                <div>
+                    <label for="verification" class="text-sm text-gray-600 font-medium mb-2 block">验证码</label>
+                    <div class="flex space-x-4">
+                        <div class="relative flex-grow">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-shield-alt text-gray-400"></i>
+                            </div>
+                            <input type="text" id="verification" class="auth-input w-full pl-12" placeholder="请输入验证码" maxlength="6">
+                        </div>
+                        <button type="button" class="bg-green-50 text-green-600 font-medium rounded-xl px-4 whitespace-nowrap text-sm border border-green-200">
+                            获取验证码
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 登录按钮 -->
+                <button type="button" class="w-full btn-primary text-white py-4 rounded-xl font-medium text-lg mt-8 transition-all">
+                    登录 / 注册
+                </button>
+                
+                <!-- 其他登录方式 -->
+                <div class="mt-8">
+                    <div class="flex items-center justify-center">
+                        <div class="flex-grow h-px bg-gray-200"></div>
+                        <p class="mx-4 text-sm text-gray-400">其他登录方式</p>
+                        <div class="flex-grow h-px bg-gray-200"></div>
+                    </div>
+                    
+                    <div class="flex justify-center space-x-8 mt-6">
+                        <button type="button" class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center">
+                            <i class="fab fa-weixin text-2xl text-green-600"></i>
+                        </button>
+                        <button type="button" class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center">
+                            <i class="fab fa-qq text-2xl text-blue-500"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- 底部协议链接 -->
+            <div class="text-center text-xs text-gray-500 mt-8">
+                登录即表示同意 <a href="#" class="text-green-600">《用户协议》</a> 和 <a href="#" class="text-green-600">《隐私政策》</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

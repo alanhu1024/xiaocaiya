@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>孩子账户管理 - 小财芽APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding-bottom: 80px;
+        }
+        .avatar {
+            border: 3px solid white;
+        }
+        .child-card {
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .child-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .achievement-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+        .floating-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background-color: #4caf50;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            z-index: 50;
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e9ecef;
+            overflow: hidden;
+        }
+        .progress-value {
+            height: 100%;
+            border-radius: 4px;
+            background-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 pt-6">
+        <!-- 顶部栏 -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="fas fa-user text-green-600"></i>
+                </div>
+                <div class="ml-3">
+                    <h2 class="text-lg font-semibold">林妈妈</h2>
+                    <p class="text-sm text-gray-500">家长账号</p>
+                </div>
+            </div>
+            <div>
+                <button class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-bell text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 标题 -->
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">孩子账户管理</h1>
+            <p class="text-sm text-gray-500 mt-1">管理孩子账户信息和成长记录</p>
+        </div>
+        
+        <!-- 孩子账户列表 -->
+        <div class="space-y-6 mb-8">
+            <!-- 小明账户卡片 -->
+            <div class="child-card bg-white p-5">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="小明" class="w-16 h-16 rounded-full avatar">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold text-gray-800">小明</h3>
+                            <div class="flex items-center mt-1">
+                                <span class="text-sm bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full">8岁</span>
+                                <span class="text-sm text-gray-500 ml-3">2年级</span>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <i class="fas fa-coins text-yellow-500 mr-1 text-xs"></i>
+                                <span class="text-sm text-gray-500">芽币余额: 128</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                    </button>
+                </div>
+                
+                <div class="border-t border-gray-100 pt-4">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-600">任务完成率</span>
+                        <span class="text-green-600 font-medium">78%</span>
+                    </div>
+                    <div class="progress-bar mb-4">
+                        <div class="progress-value" style="width: 78%"></div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="flex-1 py-2 bg-green-50 text-green-600 rounded-lg font-medium text-sm flex items-center justify-center">
+                            <i class="fas fa-tasks mr-2"></i>
+                            查看任务
+                        </button>
+                        <button class="flex-1 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium text-sm flex items-center justify-center">
+                            <i class="fas fa-user-edit mr-2"></i>
+                            编辑信息
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 小红账户卡片 -->
+            <div class="child-card bg-white p-5">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="flex items-center">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="小红" class="w-16 h-16 rounded-full avatar">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold text-gray-800">小红</h3>
+                            <div class="flex items-center mt-1">
+                                <span class="text-sm bg-pink-100 text-pink-600 px-2 py-0.5 rounded-full">6岁</span>
+                                <span class="text-sm text-gray-500 ml-3">幼儿园大班</span>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <i class="fas fa-coins text-yellow-500 mr-1 text-xs"></i>
+                                <span class="text-sm text-gray-500">芽币余额: 76</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                    </button>
+                </div>
+                
+                <div class="border-t border-gray-100 pt-4">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-600">任务完成率</span>
+                        <span class="text-green-600 font-medium">65%</span>
+                    </div>
+                    <div class="progress-bar mb-4">
+                        <div class="progress-value" style="width: 65%"></div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="flex-1 py-2 bg-green-50 text-green-600 rounded-lg font-medium text-sm flex items-center justify-center">
+                            <i class="fas fa-tasks mr-2"></i>
+                            查看任务
+                        </button>
+                        <button class="flex-1 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium text-sm flex items-center justify-center">
+                            <i class="fas fa-user-edit mr-2"></i>
+                            编辑信息
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 添加新孩子卡片 -->
+            <div class="child-card bg-white p-5 border-dashed border-2 border-gray-200 flex flex-col items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-3">
+                    <i class="fas fa-plus text-gray-400 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-700">添加新孩子</h3>
+                <p class="text-sm text-gray-500 mt-1 text-center">为家庭中的其他孩子创建新账号</p>
+                <button class="mt-4 py-2 px-6 bg-green-50 text-green-600 rounded-lg font-medium text-sm">
+                    开始创建
+                </button>
+            </div>
+        </div>
+        
+        <!-- 成长成就 -->
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">最近成就</h2>
+            
+            <div class="bg-white p-5 rounded-2xl">
+                <div class="flex items-center mb-4">
+                    <img src="https://i.pravatar.cc/150?img=3" alt="小明" class="w-10 h-10 rounded-full avatar">
+                    <h3 class="ml-3 font-medium text-gray-800">小明的成就</h3>
+                </div>
+                
+                <div class="flex space-x-4 overflow-x-auto pb-3 scrollbar-hide">
+                    <div class="flex flex-col items-center">
+                        <div class="achievement-badge bg-purple-100 mb-2">
+                            <i class="fas fa-book text-purple-600 text-xl mb-1"></i>
+                            <span class="text-xs font-medium text-purple-600">学习达人</span>
+                        </div>
+                        <span class="text-xs text-gray-500">连续7天完成学习任务</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="achievement-badge bg-blue-100 mb-2">
+                            <i class="fas fa-broom text-blue-600 text-xl mb-1"></i>
+                            <span class="text-xs font-medium text-blue-600">清洁小能手</span>
+                        </div>
+                        <span class="text-xs text-gray-500">完成10次整理任务</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="achievement-badge bg-green-100 mb-2">
+                            <i class="fas fa-seedling text-green-600 text-xl mb-1"></i>
+                            <span class="text-xs font-medium text-green-600">成长之星</span>
+                        </div>
+                        <span class="text-xs text-gray-500">积累超过100芽币</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="achievement-badge bg-yellow-100 mb-2">
+                            <i class="fas fa-star text-yellow-600 text-xl mb-1"></i>
+                            <span class="text-xs font-medium text-yellow-600">全能达人</span>
+                        </div>
+                        <span class="text-xs text-gray-500">各类任务都有完成</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 成长数据 -->
+        <div class="bg-white p-5 rounded-2xl mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">成长数据</h2>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-3 bg-purple-50 rounded-xl">
+                    <div class="flex items-center mb-2">
+                        <div class="w-8 h-8 rounded-full bg-purple-200 flex items-center justify-center">
+                            <i class="fas fa-tasks text-purple-600"></i>
+                        </div>
+                        <span class="ml-2 text-sm font-medium text-gray-700">任务总数</span>
+                    </div>
+                    <span class="text-2xl font-bold">42</span>
+                    <span class="text-xs text-green-600 ml-2">+8 本周</span>
+                </div>
+                
+                <div class="p-3 bg-green-50 rounded-xl">
+                    <div class="flex items-center mb-2">
+                        <div class="w-8 h-8 rounded-full bg-green-200 flex items-center justify-center">
+                            <i class="fas fa-check-circle text-green-600"></i>
+                        </div>
+                        <span class="ml-2 text-sm font-medium text-gray-700">已完成任务</span>
+                    </div>
+                    <span class="text-2xl font-bold">31</span>
+                    <span class="text-xs text-green-600 ml-2">完成率 74%</span>
+                </div>
+                
+                <div class="p-3 bg-yellow-50 rounded-xl">
+                    <div class="flex items-center mb-2">
+                        <div class="w-8 h-8 rounded-full bg-yellow-200 flex items-center justify-center">
+                            <i class="fas fa-coins text-yellow-600"></i>
+                        </div>
+                        <span class="ml-2 text-sm font-medium text-gray-700">芽币总发放</span>
+                    </div>
+                    <span class="text-2xl font-bold">286</span>
+                    <span class="text-xs text-green-600 ml-2">+42 本周</span>
+                </div>
+                
+                <div class="p-3 bg-blue-50 rounded-xl">
+                    <div class="flex items-center mb-2">
+                        <div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center">
+                            <i class="fas fa-medal text-blue-600"></i>
+                        </div>
+                        <span class="ml-2 text-sm font-medium text-gray-700">获得成就</span>
+                    </div>
+                    <span class="text-2xl font-bold">8</span>
+                    <span class="text-xs text-green-600 ml-2">+2 本月</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 悬浮添加按钮 -->
+    <button class="floating-btn">
+        <i class="fas fa-plus"></i>
+    </button>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav h-16 flex items-center justify-around">
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-home text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">首页</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-tasks text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">任务</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-plus-circle text-gray-400 text-2xl"></i>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-coins text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">芽币</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-user text-green-600"></i>
+            <span class="text-xs mt-1 text-green-600">我的</span>
+        </a>
+    </div>
+</body>
+</html> 

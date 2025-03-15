@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置 - 小财芽APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding-bottom: 80px;
+        }
+        .avatar {
+            border: 3px solid white;
+        }
+        .settings-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .settings-item {
+            transition: all 0.2s ease;
+        }
+        .settings-item:active {
+            background-color: #f5f5f5;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .switch-slider {
+            background-color: #4caf50;
+        }
+        input:checked + .switch-slider:before {
+            transform: translateX(24px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 pt-6">
+        <!-- 顶部栏 -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="fas fa-user text-green-600"></i>
+                </div>
+                <div class="ml-3">
+                    <h2 class="text-lg font-semibold">林妈妈</h2>
+                    <p class="text-sm text-gray-500">家长账号</p>
+                </div>
+            </div>
+            <div>
+                <button class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-bell text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 标题 -->
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">设置</h1>
+            <p class="text-sm text-gray-500 mt-1">管理您的应用设置和偏好</p>
+        </div>
+        
+        <!-- 个人资料卡片 -->
+        <div class="settings-card bg-white mb-6">
+            <div class="p-5 border-b border-gray-100">
+                <h3 class="font-semibold text-gray-800 mb-4">个人资料</h3>
+                
+                <div class="flex items-center">
+                    <div class="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-user text-green-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4 flex-grow">
+                        <div class="mb-1">
+                            <label class="text-xs text-gray-500">姓名</label>
+                            <h4 class="font-medium text-gray-800">林妈妈</h4>
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500">手机号</label>
+                            <h4 class="font-medium text-gray-800">138****5678</h4>
+                        </div>
+                    </div>
+                    <button class="text-green-600 whitespace-nowrap">
+                        <i class="fas fa-edit mr-1"></i>编辑
+                    </button>
+                </div>
+            </div>
+            
+            <div class="divide-y divide-gray-100">
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                            <i class="fas fa-key text-blue-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">修改密码</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center">
+                            <i class="fas fa-user-shield text-purple-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">隐私设置</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 应用设置卡片 -->
+        <div class="settings-card bg-white mb-6">
+            <div class="p-4 border-b border-gray-100">
+                <h3 class="font-semibold text-gray-800">应用设置</h3>
+            </div>
+            
+            <div class="divide-y divide-gray-100">
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
+                            <i class="fas fa-bell text-green-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">推送通知</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center">
+                            <i class="fas fa-volume-up text-orange-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">音效</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center">
+                            <i class="fas fa-mobile-alt text-pink-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">震动反馈</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center">
+                            <i class="fas fa-language text-indigo-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">语言</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-gray-500 mr-2">简体中文</span>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 家庭管理卡片 -->
+        <div class="settings-card bg-white mb-6">
+            <div class="p-4 border-b border-gray-100">
+                <h3 class="font-semibold text-gray-800">家庭管理</h3>
+            </div>
+            
+            <div class="divide-y divide-gray-100">
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center">
+                            <i class="fas fa-child text-yellow-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">管理孩子账号</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-gray-500 mr-2">2个账号</span>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
+                            <i class="fas fa-tools text-red-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">任务类型配置</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                            <i class="fas fa-shopping-cart text-blue-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">商城奖品管理</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 帮助与支持卡片 -->
+        <div class="settings-card bg-white mb-6">
+            <div class="p-4 border-b border-gray-100">
+                <h3 class="font-semibold text-gray-800">帮助与支持</h3>
+            </div>
+            
+            <div class="divide-y divide-gray-100">
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center">
+                            <i class="fas fa-question-circle text-teal-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">常见问题</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-cyan-50 flex items-center justify-center">
+                            <i class="fas fa-headset text-cyan-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">联系客服</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+                
+                <div class="settings-item p-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center">
+                            <i class="fas fa-info-circle text-gray-600"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800">关于我们</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-gray-500 mr-2">v1.0.0</span>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 退出登录按钮 -->
+        <button class="w-full py-4 bg-red-50 text-red-600 rounded-xl font-medium mb-8">
+            退出登录
+        </button>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav h-16 flex items-center justify-around">
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-home text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">首页</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-tasks text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">任务</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-plus-circle text-gray-400 text-2xl"></i>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-coins text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">芽币</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-user text-green-600"></i>
+            <span class="text-xs mt-1 text-green-600">我的</span>
+        </a>
+    </div>
+</body>
+</html> 

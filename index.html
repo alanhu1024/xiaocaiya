@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小财芽APP - 原型</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f5f5f7;
+        }
+        .device-container {
+            width: 390px;
+            height: 844px;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            margin: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 12px solid #1a1a1a;
+        }
+        .status-bar {
+            height: 44px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .tab-bar {
+            height: 84px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid #e0e0e0;
+        }
+        .device-iframe {
+            width: 100%;
+            height: calc(100% - 128px); /* 减去状态栏和底部导航栏的高度 */
+            border: none;
+        }
+        .prototype-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+            gap: 40px;
+            padding: 20px;
+        }
+        .screen-title {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto py-10">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-green-600">小财芽APP原型设计</h1>
+            <p class="text-lg text-gray-600 mt-2">帮助家长培养孩子良好行为习惯的应用</p>
+        </div>
+        
+        <div class="prototype-grid">
+            <!-- 通用界面 -->
+            <div>
+                <div class="screen-title">登录/注册界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="login.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">角色选择界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="role_select.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <!-- 家长端界面 -->
+            <div>
+                <div class="screen-title">家长首页/仪表板</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="parent_dashboard.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">任务管理界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="parent_tasks.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">芽币管理界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="parent_coins.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">孩子账户管理界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="parent_children.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">家庭动态界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="parent_family.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">设置界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="parent_settings.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <!-- 孩子端界面 -->
+            <div>
+                <div class="screen-title">孩子首页/仪表板</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="child_dashboard.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">任务列表界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="child_tasks.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">芽币账户界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="child_coins.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <div>
+                <div class="screen-title">商城/兑换界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="child_store.html" class="device-iframe"></iframe>
+                </div>
+            </div>
+            
+            <!-- <div>
+                <div class="screen-title">排行榜界面</div>
+                <div class="device-container">
+                    <div class="status-bar flex items-center justify-between px-6">
+                        <div>9:41</div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <iframe src="child_ranking.html" class="device-iframe"></iframe>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</body>
+</html> 

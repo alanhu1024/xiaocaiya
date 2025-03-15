@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商城兑换 - 小财芽APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding-bottom: 80px;
+        }
+        .avatar {
+            border: 3px solid white;
+        }
+        .nav-tab {
+            position: relative;
+        }
+        .nav-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #4caf50;
+            border-radius: 3px;
+        }
+        .store-item {
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .store-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+        .category-tab {
+            transition: all 0.3s ease;
+        }
+        .category-tab.active {
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+            color: #4caf50;
+        }
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #ff6b6b;
+            color: white;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .item-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            z-index: 10;
+        }
+        .coin-icon {
+            position: relative;
+            animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .shake-animation {
+            animation: shake 0.5s ease-in-out infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px) rotate(-2deg); }
+            75% { transform: translateX(3px) rotate(2deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 pt-6">
+        <!-- 顶部栏 -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <img src="https://i.pravatar.cc/150?img=3" alt="小明" class="w-12 h-12 rounded-full avatar">
+                <div class="ml-3">
+                    <h2 class="text-lg font-semibold">小明</h2>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-1 text-xs"></i>
+                        <span class="text-sm text-gray-500">8岁 · 2年级</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center bg-green-100 px-3 py-2 rounded-xl">
+                <div class="coin-icon mr-2">
+                    <i class="fas fa-coins text-yellow-500"></i>
+                </div>
+                <div>
+                    <div class="text-xs text-gray-500">我的芽币</div>
+                    <div class="font-bold text-green-600">128</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 导航标签页 -->
+        <div class="flex space-x-6 border-b border-gray-200 pb-3 mb-6">
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">首页</span>
+            </div>
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">任务</span>
+            </div>
+            <div class="nav-tab active">
+                <span class="font-medium text-gray-800">商城</span>
+            </div>
+            <div class="nav-tab">
+                <span class="font-medium text-gray-500">排行榜</span>
+            </div>
+        </div>
+        
+        <!-- 商城横幅 -->
+        <div class="relative rounded-2xl overflow-hidden mb-6">
+            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="商城横幅" class="w-full h-32 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-green-600 to-transparent opacity-80"></div>
+            <div class="absolute inset-0 flex flex-col justify-center pl-6">
+                <h2 class="text-white text-xl font-bold">芽币商城</h2>
+                <p class="text-white text-sm opacity-90 mt-1">用芽币兑换你喜欢的奖励吧！</p>
+                <div class="mt-2">
+                    <span class="bg-white bg-opacity-30 text-white px-3 py-1 rounded-full text-xs">
+                        已累计兑换8次
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 分类选择器 -->
+        <div class="flex space-x-3 overflow-x-auto pb-3 mb-6 scrollbar-hide">
+            <button class="category-tab active flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 font-medium text-sm">
+                全部商品
+            </button>
+            <button class="category-tab flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                <i class="fas fa-clock mr-1"></i>
+                时间特权
+            </button>
+            <button class="category-tab flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                <i class="fas fa-gamepad mr-1"></i>
+                娱乐奖励
+            </button>
+            <button class="category-tab flex items-center justify-center whitespace-nowrap px-5 py-2 rounded-full border-2 border-gray-200 font-medium text-sm text-gray-600">
+                <i class="fas fa-gift mr-1"></i>
+                实物礼品
+            </button>
+        </div>
+        
+        <!-- 热门商品 -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-gray-800">热门兑换</h3>
+                <span class="text-sm text-green-600">查看全部</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <!-- 商品1 -->
+                <div class="store-item bg-white overflow-hidden">
+                    <div class="relative">
+                        <span class="item-tag bg-red-500 text-white">热门</span>
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="游戏时间" class="w-full h-32 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-10"></div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-medium text-gray-800 mb-1">额外30分钟游戏时间</h4>
+                        <p class="text-xs text-gray-500 mb-3">在规定游戏时间外额外获得30分钟</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-yellow-500 mr-1"></i>
+                                <span class="font-bold text-green-600">20</span>
+                            </div>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm">
+                                兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 商品2 -->
+                <div class="store-item bg-white overflow-hidden">
+                    <div class="relative">
+                        <span class="item-tag bg-orange-500 text-white">新品</span>
+                        <img src="https://images.unsplash.com/photo-1567016526105-22da7c13161a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="电影票" class="w-full h-32 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-10"></div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-medium text-gray-800 mb-1">周末电影票</h4>
+                        <p class="text-xs text-gray-500 mb-3">周末和爸爸妈妈一起去看电影</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-yellow-500 mr-1"></i>
+                                <span class="font-bold text-green-600">50</span>
+                            </div>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm">
+                                兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 所有商品 -->
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-800 mb-4">所有商品</h3>
+            
+            <div class="space-y-4">
+                <!-- 商品1 -->
+                <div class="store-item bg-white p-4 flex">
+                    <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 mr-4">
+                        <img src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="睡前故事" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="font-medium text-gray-800">睡前故事 <span class="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">服务</span></h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-yellow-500 mr-1"></i>
+                                <span class="font-bold text-green-600">15</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">由爸爸或妈妈额外讲一个睡前故事</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">已兑换2次</span>
+                            <button class="bg-green-100 text-green-600 px-3 py-1 rounded-lg text-sm font-medium">
+                                兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 商品2 -->
+                <div class="store-item bg-white p-4 flex">
+                    <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 mr-4">
+                        <img src="https://images.unsplash.com/photo-1464219789935-c2d9d9aedf4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="延迟作业" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="font-medium text-gray-800">延迟作业 <span class="text-xs text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">特权</span></h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-yellow-500 mr-1"></i>
+                                <span class="font-bold text-green-600">30</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">一次性将作业时间延迟1小时</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">已兑换1次</span>
+                            <button class="bg-green-100 text-green-600 px-3 py-1 rounded-lg text-sm font-medium">
+                                兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 商品3 -->
+                <div class="store-item bg-white p-4 flex">
+                    <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 mr-4">
+                        <img src="https://images.unsplash.com/photo-1577374994771-3256cf611860?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="玩具车" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="font-medium text-gray-800">遥控赛车 <span class="text-xs text-red-600 bg-red-50 px-2 py-0.5 rounded-full">实物</span></h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-yellow-500 mr-1"></i>
+                                <span class="font-bold text-green-600">120</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">高速遥控玩具赛车</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">库存2件</span>
+                            <button class="bg-gray-100 text-gray-400 px-3 py-1 rounded-lg text-sm font-medium">
+                                芽币不足
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 商品4 -->
+                <div class="store-item bg-white p-4 flex">
+                    <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 mr-4">
+                        <img src="https://images.unsplash.com/photo-1535572290543-960a8046f5af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="图书" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="font-medium text-gray-800">精选童书 <span class="text-xs text-red-600 bg-red-50 px-2 py-0.5 rounded-full">实物</span></h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-yellow-500 mr-1"></i>
+                                <span class="font-bold text-green-600">40</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">各种精选儿童图书</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">库存充足</span>
+                            <button class="bg-green-100 text-green-600 px-3 py-1 rounded-lg text-sm font-medium">
+                                兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 商品5 -->
+                <div class="store-item bg-white p-4 flex">
+                    <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 mr-4">
+                        <img src="https://images.unsplash.com/photo-1501426919242-ba56c8b9bc4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="冰淇淋" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="font-medium text-gray-800">冰淇淋一个 <span class="text-xs text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">美食</span></h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-yellow-500 mr-1"></i>
+                                <span class="font-bold text-green-600">10</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">兑换一个喜欢口味的冰淇淋</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-400">已兑换5次</span>
+                            <button class="bg-green-100 text-green-600 px-3 py-1 rounded-lg text-sm font-medium">
+                                兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 加载更多 -->
+                <button class="w-full py-3 bg-gray-100 text-gray-600 rounded-xl font-medium">
+                    加载更多
+                </button>
+            </div>
+        </div>
+        
+        <!-- 兑换记录 -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-gray-800">兑换记录</h3>
+                <span class="text-sm text-green-600">查看全部</span>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-4">
+                <div class="divide-y divide-gray-100">
+                    <!-- 记录1 -->
+                    <div class="py-3 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-gamepad text-blue-600"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="font-medium text-gray-800">额外30分钟游戏时间</h4>
+                                <span class="text-xs text-gray-500">2天前兑换</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center justify-end">
+                                <i class="fas fa-coins text-yellow-500 mr-1 text-xs"></i>
+                                <span class="text-green-600 font-medium">-20</span>
+                            </div>
+                            <span class="text-xs text-gray-500">已使用</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 记录2 -->
+                    <div class="py-3 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-book text-orange-600"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="font-medium text-gray-800">睡前故事</h4>
+                                <span class="text-xs text-gray-500">4天前兑换</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center justify-end">
+                                <i class="fas fa-coins text-yellow-500 mr-1 text-xs"></i>
+                                <span class="text-green-600 font-medium">-15</span>
+                            </div>
+                            <span class="text-xs text-green-500">已使用</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 记录3 -->
+                    <div class="py-3 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-ice-cream text-pink-600"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="font-medium text-gray-800">冰淇淋一个</h4>
+                                <span class="text-xs text-gray-500">1周前兑换</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center justify-end">
+                                <i class="fas fa-coins text-yellow-500 mr-1 text-xs"></i>
+                                <span class="text-green-600 font-medium">-10</span>
+                            </div>
+                            <span class="text-xs text-green-500">已使用</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 芽币摇一摇按钮 -->
+    <div class="fixed bottom-24 right-6 z-20">
+        <button class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 flex flex-col items-center justify-center text-white shadow-lg shake-animation">
+            <i class="fas fa-coins text-yellow-300 text-xl mb-1"></i>
+            <span class="text-xs">摇芽币</span>
+        </button>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav h-16 flex items-center justify-around">
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-home text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">首页</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-tasks text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">任务</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-store text-green-600"></i>
+            <span class="text-xs mt-1 text-green-600">商城</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center">
+            <i class="fas fa-trophy text-gray-400"></i>
+            <span class="text-xs mt-1 text-gray-400">排行榜</span>
+        </a>
+    </div>
+</body>
+</html> 
